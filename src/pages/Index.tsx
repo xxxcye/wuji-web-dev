@@ -275,10 +275,15 @@ const Index = () => {
                   <div className="flex items-center gap-3">
                     {/* 左侧两张卡片 */}
                     <div className="flex flex-col gap-2 flex-1">
-                      {[
-                        { label: "睡眠行为全周期分析", sub: "睡眠4分期 · 恢复预测 · 睡眠年龄" },
-                        { label: "呼吸健康", sub: "AHI · 呼吸频率" },
-                      ].map((out) => (
+                      {(isZh
+                        ? [
+                            { label: "睡眠行为全周期分析", sub: "睡眠4分期 · 恢复预测 · 睡眠年龄" },
+                            { label: "呼吸健康", sub: "AHI · 呼吸频率" },
+                          ]
+                        : [
+                            { label: "Full-cycle sleep behavior", sub: "4-stage staging · recovery prediction · sleep age" },
+                            { label: "Respiratory health", sub: "AHI · respiratory rate" },
+                          ]).map((out) => (
                         <div key={out.label} className="bg-surface-sunken rounded-lg border p-3 text-center">
                           <p className="text-xs font-semibold text-foreground mb-1">{out.label}</p>
                           <p className="text-[10px] text-muted-foreground leading-snug">{out.sub}</p>
@@ -287,15 +292,20 @@ const Index = () => {
                     </div>
                     {/* 中间：指标体系 + 30+ */}
                     <div className="flex flex-col items-center justify-center px-4 shrink-0">
-                      <span className="text-sm font-medium text-foreground">指标体系</span>
+                      <span className="text-sm font-medium text-foreground">{isZh ? "指标体系" : "Biomarker set"}</span>
                       <span className="text-3xl font-bold text-primary">30+</span>
                     </div>
                     {/* 右侧两张卡片 */}
                     <div className="flex flex-col gap-2 flex-1">
-                      {[
-                        { label: "心脏监测", sub: "心率 · HRV · 房颤" },
-                        { label: "疾病风险", sub: "失眠 · 抑郁 · 帕金森 · COPD" },
-                      ].map((out) => (
+                      {(isZh
+                        ? [
+                            { label: "心脏监测", sub: "心率 · HRV · 房颤" },
+                            { label: "疾病风险", sub: "失眠 · 抑郁 · 帕金森 · COPD" },
+                          ]
+                        : [
+                            { label: "Cardiac monitoring", sub: "Heart rate · HRV · AF" },
+                            { label: "Disease risk", sub: "Insomnia · depression · Parkinson's · COPD" },
+                          ]).map((out) => (
                         <div key={out.label} className="bg-surface-sunken rounded-lg border p-3 text-center">
                           <p className="text-xs font-semibold text-foreground mb-1">{out.label}</p>
                           <p className="text-[10px] text-muted-foreground leading-snug">{out.sub}</p>
@@ -308,14 +318,26 @@ const Index = () => {
                 {/* 02 + 03 side by side */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="bg-background rounded-lg border p-5 text-center">
-                    <span className="text-sm font-medium text-foreground mb-2 block">睡眠分期准确性</span>
+                    <span className="text-sm font-medium text-foreground mb-2 block">{isZh ? "睡眠分期准确性" : "Sleep staging accuracy"}</span>
                     <p className="text-3xl font-bold text-primary mb-2">85%</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">对比临床金标准多导睡眠仪PSG评价结果：<br />4 分期准确性 85%，Kappa=0.77</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {isZh ? (
+                        <>对比临床金标准多导睡眠仪PSG评价结果：<br />4 分期准确性 85%，Kappa=0.77</>
+                      ) : (
+                        <>Evaluated against PSG gold standard:<br />4-stage accuracy 85%, Kappa=0.77</>
+                      )}
+                    </p>
                   </div>
                   <div className="bg-background rounded-lg border p-5 text-center">
-                    <span className="text-sm font-medium text-foreground mb-2 block">OSA 诊断准确性</span>
+                    <span className="text-sm font-medium text-foreground mb-2 block">{isZh ? "OSA 诊断准确性" : "OSA screening accuracy"}</span>
                     <p className="text-3xl font-bold text-primary mb-2">92.1%</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">对比临床金标准多导睡眠仪PSG评价结果：<br />AHI≥5 敏感性 92.1%、特异性 94.4%，与金标准相关系数 r=0.967</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {isZh ? (
+                        <>对比临床金标准多导睡眠仪PSG评价结果：<br />AHI≥5 敏感性 92.1%、特异性 94.4%，与金标准相关系数 r=0.967</>
+                      ) : (
+                        <>Evaluated against PSG gold standard:<br />AHI≥5 sensitivity 92.1%, specificity 94.4%, correlation r=0.967</>
+                      )}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -331,11 +353,16 @@ const Index = () => {
           <FadeIn delay={0.2}>
             <div className="bg-card rounded-xl border p-6">
               <div className="text-center mb-5">
-                <h3 className="text-lg font-bold text-foreground flex items-center justify-center gap-2"><span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">3</span>个性化干预与主动健康</h3>
-                <p className="text-xs text-muted-foreground mt-1">从数据洞察到异常发现、主动管理</p>
+                <h3 className="text-lg font-bold text-foreground flex items-center justify-center gap-2">
+                  <span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">3</span>
+                  {isZh ? "个性化干预与主动健康" : "Personalized Intervention & Proactive Health"}
+                </h3>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {isZh ? "从数据洞察到异常发现、主动管理" : "From insights to anomaly detection and proactive management"}
+                </p>
               </div>
               <div className="flex items-center justify-center gap-2 mb-4">
-                {["睡眠", "疾病", "健康"].map((item, i) => (
+                {(isZh ? ["睡眠", "疾病", "健康"] : ["Sleep", "Condition", "Health"]).map((item, i) => (
                   <span key={item} className="flex items-center gap-2">
                     <span className="text-[11px] px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium">{item}</span>
                     {i < 2 && <ArrowRight className="w-3 h-3 text-muted-foreground" />}
@@ -347,15 +374,23 @@ const Index = () => {
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2">
                     <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                   </div>
-                  <p className="font-medium text-foreground mb-1 text-sm">异常指标驱动</p>
-                  <p className="text-muted-foreground text-xs">实时识别异常生理信号，自动触发干预响应</p>
+                  <p className="font-medium text-foreground mb-1 text-sm">
+                    {isZh ? "异常指标驱动" : "Anomaly-driven"}
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    {isZh ? "实时识别异常生理信号，自动触发干预响应" : "Detect abnormal physiology in real time and trigger interventions automatically"}
+                  </p>
                 </div>
                 <div className="bg-background rounded-lg border p-4 text-center">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2">
                     <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0z"/><path d="M12 7v5l3 3"/></svg>
                   </div>
-                  <p className="font-medium text-foreground mb-1 text-sm">个体化居家长期伴随</p>
-                  <p className="text-muted-foreground text-xs">持续监测 + 个性化方案，全生命周期健康陪伴</p>
+                  <p className="font-medium text-foreground mb-1 text-sm">
+                    {isZh ? "个体化居家长期伴随" : "Personalized long-term companion"}
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    {isZh ? "持续监测 + 个性化方案，全生命周期健康陪伴" : "Continuous monitoring + tailored plans across the full health journey"}
+                  </p>
                 </div>
                 <div className="bg-background rounded-lg border p-4 text-center">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2">
@@ -694,7 +729,7 @@ const Index = () => {
                           { label: "Apple Watch", accuracy: null, kappa: 0.63 },
                           { label: "Havard", accuracy: null, kappa: 0.585 },
                           { label: "watchPAT", accuracy: 0.63, kappa: 0.418 },
-                          { label: "五季监测垫", accuracy: 0.85, kappa: 0.772 },
+                          { label: isZh ? "五季监测垫" : "Five Seasons Mat", accuracy: 0.85, kappa: 0.772 },
                         ].map((item, i) => {
                           const isOurs = i === 3;
                           const maxH = 80;
@@ -725,13 +760,15 @@ const Index = () => {
                     </div>
                     {/* OSA诊断比较 */}
                     <div>
-                      <p className="text-[11px] text-muted-foreground mb-3 text-center tracking-wide">五季监测垫在不同OSA诊断标准下的表现</p>
+                      <p className="text-[11px] text-muted-foreground mb-3 text-center tracking-wide">
+                        {isZh ? "五季监测垫在不同OSA诊断标准下的表现" : "OSA screening performance under different diagnostic thresholds"}
+                      </p>
                       <div className="flex items-end justify-center gap-5">
                         {[
                           { label: "Nox-T3\nHSAT", ahi5: [0.988, 0.400], ahi15: [0.915, 0.765], ahi30: [0.711, 0.976] },
                           { label: "Huawei\nWatch", ahi5: [0.675, 0.947], ahi15: [0.887, 0.878], ahi30: [0.857, 0.910] },
                           { label: "Apple\nWatch", ahi5: [null, null], ahi15: [0.663, 0.985], ahi30: [null, null] },
-                          { label: "五季\n监测垫", ahi5: [0.921, 0.944], ahi15: [0.947, 0.932], ahi30: [0.921, 0.973] },
+                          { label: isZh ? "五季\n监测垫" : "Five Seasons\nMat", ahi5: [0.921, 0.944], ahi15: [0.947, 0.932], ahi30: [0.921, 0.973] },
                         ].map((item, i) => {
                           const isOurs = i === 3;
                           const maxH = 70;
@@ -747,7 +784,9 @@ const Index = () => {
                           );
                         })}
                       </div>
-                      <p className="text-[9px] text-muted-foreground/60 text-center mt-3">柱高 = AHI≥5/15/30 敏感性+特异性均值</p>
+                      <p className="text-[9px] text-muted-foreground/60 text-center mt-3">
+                        {isZh ? "柱高 = AHI≥5/15/30 敏感性+特异性均值" : "Bar height = mean of sensitivity + specificity at AHI≥5/15/30"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -757,16 +796,26 @@ const Index = () => {
 
           <FadeIn>
             <div className="mb-12">
-              <h3 className="text-lg font-semibold text-foreground mb-2">生理信号大模型</h3>
-              <p className="text-sm text-muted-foreground mb-6">全球首个生成式生理信号大模型，辅助多种疾病的诊断和病程研究</p>
+              <h3 className="text-lg font-semibold text-foreground mb-2">
+                {isZh ? "生理信号大模型" : "Physiological Foundation Model"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-6">
+                {isZh ? "全球首个生成式生理信号大模型，辅助多种疾病的诊断和病程研究" : "A generative foundation model for physiological signals to support disease screening and progression research"}
+              </p>
 
               {/* 三大能力 */}
               <div className="grid md:grid-cols-3 gap-4 mb-6">
-                {[
-                  { title: "疾病诊断", desc: "基于睡眠生理信号实现帕金森、抑郁等疾病的无创筛查" },
-                  { title: "疾病严重程度刻画", desc: "帕金森严重程度预测与 MDS-UPDRS 问卷高度一致（R=0.94）" },
-                  { title: "疾病风险预测", desc: "可预测 6 年内帕金森患病风险，支持早期干预决策" },
-                ].map((item, i) => (
+                {(isZh
+                  ? [
+                      { title: "疾病诊断", desc: "基于睡眠生理信号实现帕金森、抑郁等疾病的无创筛查" },
+                      { title: "疾病严重程度刻画", desc: "帕金森严重程度预测与 MDS-UPDRS 问卷高度一致（R=0.94）" },
+                      { title: "疾病风险预测", desc: "可预测 6 年内帕金森患病风险，支持早期干预决策" },
+                    ]
+                  : [
+                      { title: "Disease screening", desc: "Non-invasive screening for Parkinson's, depression, and more from sleep physiology" },
+                      { title: "Severity modeling", desc: "Parkinson's severity prediction aligns with MDS-UPDRS (R=0.94)" },
+                      { title: "Risk prediction", desc: "Predict Parkinson's risk within 6 years to support early interventions" },
+                    ]).map((item, i) => (
                   <div key={i} className="bg-card border rounded-xl p-4">
                     <span className="text-xs font-medium text-primary mb-1.5 block">› {item.title}</span>
                     <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
@@ -776,17 +825,19 @@ const Index = () => {
 
               {/* 帕金森专题 - Collapsible */}
               <CollapsibleCard
-                title="帕金森病 — 诊断、严重程度与风险预测"
-                subtitle="Yang et al., Nature Medicine, 2022 · 仅用 MIT 约 1/7 的数据即达到外部验证集上相似指标"
-                keyMetric={{ label: "外部验证 AUC", value: "0.875" }}
+                title={isZh ? "帕金森病 — 诊断、严重程度与风险预测" : "Parkinson's — screening, severity, and risk prediction"}
+                subtitle={isZh ? "Yang et al., Nature Medicine, 2022 · 仅用 MIT 约 1/7 的数据即达到外部验证集上相似指标" : "Yang et al., Nature Medicine, 2022 · Comparable external validation with ~1/7 of MIT data"}
+                keyMetric={{ label: isZh ? "外部验证 AUC" : "External validation AUC", value: "0.875" }}
               >
                 <div className="grid md:grid-cols-3 gap-6">
                   {/* 诊断对比 */}
                   <div>
-                    <p className="text-[11px] font-medium text-foreground mb-3 text-center">诊断性能 — 五季 vs MIT</p>
+                    <p className="text-[11px] font-medium text-foreground mb-3 text-center">
+                      {isZh ? "诊断性能 — 五季 vs MIT" : "Diagnostic performance — Five Seasons vs MIT"}
+                    </p>
                     <div className="flex items-end justify-center gap-6">
                       {[
-                        { label: "正样本", mit: 2351, wuji: 337, mitL: "2,351", wujiL: "337", maxRef: 2351 },
+                        { label: isZh ? "正样本" : "Positive samples", mit: 2351, wuji: 337, mitL: "2,351", wujiL: "337", maxRef: 2351 },
                         { label: "SHHS AUC", mit: 0.857, wuji: 0.875, mitL: "0.857", wujiL: "0.875", maxRef: 1 },
                         { label: "MrOS AUC", mit: 0.875, wuji: 0.874, mitL: "0.875", wujiL: "0.874", maxRef: 1 },
                       ].map((item, i) => {
@@ -812,32 +863,38 @@ const Index = () => {
                     </div>
                     <div className="flex justify-center gap-3 mt-2">
                       <span className="flex items-center gap-1 text-[9px] text-muted-foreground"><span className="w-2 h-2 rounded bg-muted/80 inline-block" />MIT</span>
-                      <span className="flex items-center gap-1 text-[9px] text-muted-foreground"><span className="w-2 h-2 rounded bg-primary/80 inline-block" />五季</span>
+                      <span className="flex items-center gap-1 text-[9px] text-muted-foreground"><span className="w-2 h-2 rounded bg-primary/80 inline-block" />{isZh ? "五季" : "Five Seasons"}</span>
                     </div>
                   </div>
                   {/* 严重程度 */}
                   <div className="text-center">
-                    <p className="text-[11px] font-medium text-foreground mb-3">严重程度预测</p>
-                    <p className="text-[10px] text-muted-foreground mb-2">模型预测 vs MDS-UPDRS 问卷</p>
+                    <p className="text-[11px] font-medium text-foreground mb-3">
+                      {isZh ? "严重程度预测" : "Severity prediction"}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground mb-2">
+                      {isZh ? "模型预测 vs MDS-UPDRS 问卷" : "Model prediction vs. MDS-UPDRS"}
+                    </p>
                     <div className="flex items-center justify-center gap-3">
                       <div className="bg-primary/5 rounded-lg px-3 py-2">
                         <p className="text-lg font-bold text-primary">0.94</p>
-                        <p className="text-[9px] text-muted-foreground">R 值</p>
+                        <p className="text-[9px] text-muted-foreground">{isZh ? "R 值" : "R"}</p>
                       </div>
                       <div className="bg-primary/5 rounded-lg px-3 py-2">
                         <p className="text-xs font-bold text-primary">3.6×10⁻²⁵</p>
-                        <p className="text-[9px] text-muted-foreground">P 值</p>
+                        <p className="text-[9px] text-muted-foreground">{isZh ? "P 值" : "p-value"}</p>
                       </div>
                     </div>
                   </div>
                   {/* 风险预测 */}
                   <div>
-                    <p className="text-[11px] font-medium text-foreground mb-3 text-center">6 年患病风险预测</p>
+                    <p className="text-[11px] font-medium text-foreground mb-3 text-center">
+                      {isZh ? "6 年患病风险预测" : "6-year risk prediction"}
+                    </p>
                     <div className="flex items-end justify-center gap-3">
                       {[
-                        { label: "对照组\nn=377", score: 0.43, color: "bg-muted/80" },
-                        { label: "前驱期\nn=12", score: 0.50, color: "bg-primary/50" },
-                        { label: "确诊组\nn=12", score: 0.54, color: "bg-primary/80" },
+                        { label: isZh ? "对照组\nn=377" : "Control\nn=377", score: 0.43, color: "bg-muted/80" },
+                        { label: isZh ? "前驱期\nn=12" : "Prodromal\nn=12", score: 0.50, color: "bg-primary/50" },
+                        { label: isZh ? "确诊组\nn=12" : "Diagnosed\nn=12", score: 0.54, color: "bg-primary/80" },
                       ].map((item, i) => (
                         <div key={i} className="flex flex-col items-center">
                           <span className="text-[10px] font-medium text-primary mb-1">{item.score}</span>
@@ -853,8 +910,8 @@ const Index = () => {
 
               {/* 抑郁症专题 - Collapsible */}
               <CollapsibleCard
-                title="抑郁症患病诊断"
-                subtitle="基于睡眠心跳与呼吸信号的 AI 驱动检测 · SLEEP 2025"
+                title={isZh ? "抑郁症患病诊断" : "Depression detection"}
+                subtitle={isZh ? "基于睡眠心跳与呼吸信号的 AI 驱动检测 · SLEEP 2025" : "AI-driven detection from sleep heartbeat and breathing signals · SLEEP 2025"}
                 keyMetric={{ label: "AUROC", value: "0.831" }}
               >
                 <div className="grid md:grid-cols-3 gap-6 items-start">
@@ -931,7 +988,9 @@ const Index = () => {
 
                   {/* Key metrics */}
                   <div>
-                    <p className="text-[11px] font-medium text-foreground mb-3 text-center">关键指标</p>
+                    <p className="text-[11px] font-medium text-foreground mb-3 text-center">
+                      {isZh ? "关键指标" : "Key metrics"}
+                    </p>
                     <div className="space-y-2">
                       {[
                         { label: "Accuracy", value: "74.7%" },
@@ -955,12 +1014,18 @@ const Index = () => {
             <Link to="/research" className="group block bg-card border rounded-2xl p-6 md:p-8 hover:shadow-lg transition-shadow">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">查看全部科研成果</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    {isZh ? "查看全部科研成果" : "View all research"}
+                  </h3>
                   <p className="text-sm text-muted-foreground">
-                    已发表 11 篇（含 IMWUT、SLEEP、ICLR、medRxiv 等）· 投稿中 8 项
+                    {isZh
+                      ? "已发表 11 篇（含 IMWUT、SLEEP、ICLR、medRxiv 等）· 投稿中 8 项"
+                      : "11 published papers (IMWUT, SLEEP, ICLR, medRxiv, etc.) · 8 in review"}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {["睡眠分期与无负担长期监测", "睡眠年龄与多器官年龄建模", "睡眠碎片化生物标志物", "抑郁识别与多模态信号对齐"].map((t) => (
+                    {(isZh
+                      ? ["睡眠分期与无负担长期监测", "睡眠年龄与多器官年龄建模", "睡眠碎片化生物标志物", "抑郁识别与多模态信号对齐"]
+                      : ["Sleep staging & zero-burden monitoring", "Sleep age & multi-organ aging", "Sleep fragmentation biomarkers", "Depression detection & multimodal alignment"]).map((t) => (
                       <span key={t} className="text-[11px] px-2 py-1 bg-muted rounded-md text-muted-foreground">{t}</span>
                     ))}
                   </div>
@@ -1012,7 +1077,7 @@ const Index = () => {
                 <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
               {[
                  {
-                   date: "2025年9月25日",
+                   date: isZh ? "2025年9月25日" : "Sep 25, 2025",
                    title: isZh ? "五季医学获批第二类医疗器械注册证" : "Class II medical device registration approved",
                    link: "https://mp.weixin.qq.com/s/g2A5vrb_avVuZk5J1F9Dwg",
                   points: [
@@ -1021,7 +1086,7 @@ const Index = () => {
                   ],
                 },
                  {
-                   date: "2025年12月31日",
+                   date: isZh ? "2025年12月31日" : "Dec 31, 2025",
                    title: isZh ? "共建北京市重点实验室获批" : "Beijing key laboratory (joint) approved",
                    link: "https://mp.weixin.qq.com/s/XevDbAAgpuGqLiC7KVapbw",
                   points: [
@@ -1030,7 +1095,7 @@ const Index = () => {
                   ],
                 },
                  {
-                   date: "2026年2月13日",
+                   date: isZh ? "2026年2月13日" : "Feb 13, 2026",
                    title: isZh ? "面向真实世界睡眠医学的多模态基座模型" : "A multimodal foundation model for real-world sleep medicine",
                    link: "https://mp.weixin.qq.com/s/1jYXS6sodqHN3TMxngqajg",
                   points: [

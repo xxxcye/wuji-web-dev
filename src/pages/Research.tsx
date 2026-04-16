@@ -146,9 +146,11 @@ const Research = () => {
                     <h3 className="text-sm font-semibold text-foreground leading-relaxed mb-1">
                       {isZh ? paper.title : paper.titleEn}
                     </h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-2 italic">
-                      {isZh ? paper.titleEn : paper.title}
-                    </p>
+                    {isZh && (
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-2 italic">
+                        {paper.titleEn}
+                      </p>
+                    )}
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-xs font-medium text-primary">{paper.venue}</span>
                       <span className="text-xs text-muted-foreground">{paper.year}</span>
