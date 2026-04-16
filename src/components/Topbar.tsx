@@ -1,19 +1,31 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
-
-const navItems = [
-  { label: "技术", href: "#capabilities" },
-  { label: "产品", href: "#products" },
-  { label: "场景", href: "#scenes" },
-  { label: "科研", href: "#research" },
-  { label: "动态", href: "#evidence" },
-  { label: "关于", href: "#about" },
-];
+import { useLanguage } from "@/i18n/language";
 
 const Topbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { language, toggleLanguage } = useLanguage();
+  const isZh = language === "zh";
+
+  const navItems = isZh
+    ? [
+        { label: "技术", href: "#capabilities" },
+        { label: "产品", href: "#products" },
+        { label: "场景", href: "#scenes" },
+        { label: "科研", href: "#research" },
+        { label: "动态", href: "#evidence" },
+        { label: "关于", href: "#about" },
+      ]
+    : [
+        { label: "Technology", href: "#capabilities" },
+        { label: "Products", href: "#products" },
+        { label: "Use Cases", href: "#scenes" },
+        { label: "Research", href: "#research" },
+        { label: "Updates", href: "#evidence" },
+        { label: "About", href: "#about" },
+      ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -30,9 +42,11 @@ const Topbar = () => {
       <div className="max-w-7xl mx-auto section-padding flex items-center justify-between h-16 md:h-18">
         {/* Brand */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
-          <img src={logo} alt="五季医学" className="h-8 w-8" />
+          <img src={logo} alt={isZh ? "五季医学" : "Five Seasons Medical"} className="h-8 w-8" />
           <div className="leading-tight">
-            <span className="font-semibold text-foreground text-[#0069e0] text-lg">五季医学</span>
+            <span className="font-semibold text-foreground text-[#0069e0] text-lg">
+              {isZh ? "五季医学" : "Five Seasons Medical"}
+            </span>
             <span className="hidden lg:block text-[10px] text-muted-foreground leading-tight">
               BEIJING FIVE SEASONS MEDICAL TECHNOLOGY CO.,LTD
             </span>
@@ -54,11 +68,19 @@ const Topbar = () => {
 
         {/* CTA */}
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            className="inline-flex items-center justify-center h-9 px-3 rounded-lg border text-sm text-foreground hover:bg-muted transition-colors"
+            aria-label={isZh ? "切换到英文" : "Switch to Chinese"}
+          >
+            {isZh ? "EN" : "中文"}
+          </button>
           <a
             href="#contact"
             className="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
           >
-            联系我们
+            {isZh ? "联系我们" : "Contact"}
           </a>
           {/* Mobile menu */}
           <button
@@ -95,7 +117,7 @@ const Topbar = () => {
               onClick={() => setMobileOpen(false)}
               className="mt-2 inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium bg-primary text-primary-foreground rounded-lg"
             >
-              联系我们
+              {isZh ? "联系我们" : "Contact"}
             </a>
           </nav>
         </div>

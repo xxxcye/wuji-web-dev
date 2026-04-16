@@ -5,6 +5,7 @@ import FadeIn from "@/components/FadeIn";
 
 import { Link } from "react-router-dom";
 import { ArrowRight, Mail, ChevronRight, Award, Building2, FileCheck, ExternalLink, ChevronDown } from "lucide-react";
+import { useLanguage } from "@/i18n/language";
 import patentInvention from "@/assets/patent-invention.jpg";
 import patentUtility from "@/assets/patent-utility.jpg";
 import m2Layout from "@/assets/m2-layout.jpg";
@@ -34,28 +35,6 @@ import partner8 from "@/assets/partners/partner8.png";
 import foozhou2 from "@/assets/partners/foozhou2.png";
 import partner10 from "@/assets/partners/partner10.png";
 import harvard from "@/assets/partners/harvard.png";
-
-const partnerLogos = [
-  { name: "清华大学", src: tsinghua },
-  { name: "UCSF", src: ucsf },
-  { name: "Harvard Medical School", src: harvard },
-  { name: "北京大学医学部", src: pkuhsc },
-  { name: "瑞金医院", src: ruijin },
-  { name: "香港中文大学", src: cuhk },
-  { name: "邵逸夫医院", src: srrsh },
-  { name: "华西医院", src: huaxi },
-  { name: "回龙观医院", src: hlgh },
-  { name: "武田制药", src: takeda },
-  { name: "北京清华长庚医院", src: btch },
-  { name: "北京儿童医院", src: bch },
-  { name: "首都体育学院", src: cupes },
-  { name: "汕头大学", src: stu },
-  { name: "内蒙古脑科医院", src: nmgBrain },
-  { name: "龙华医院", src: longhua },
-  { name: "中国科协", src: partner8 },
-  { name: "福州第二医院", src: foozhou2 },
-  { name: "厦门大学", src: partner10 },
-];
 
 const CollapsibleCard = ({ title, subtitle, keyMetric, children }: {
   title: string;
@@ -92,6 +71,53 @@ const CollapsibleCard = ({ title, subtitle, keyMetric, children }: {
 };
 
 const Index = () => {
+  const { language } = useLanguage();
+  const isZh = language === "zh";
+
+  const partnerLogos = isZh
+    ? [
+        { name: "清华大学", src: tsinghua },
+        { name: "UCSF", src: ucsf },
+        { name: "哈佛医学院", src: harvard },
+        { name: "北京大学医学部", src: pkuhsc },
+        { name: "瑞金医院", src: ruijin },
+        { name: "香港中文大学", src: cuhk },
+        { name: "邵逸夫医院", src: srrsh },
+        { name: "华西医院", src: huaxi },
+        { name: "回龙观医院", src: hlgh },
+        { name: "武田制药", src: takeda },
+        { name: "北京清华长庚医院", src: btch },
+        { name: "北京儿童医院", src: bch },
+        { name: "首都体育学院", src: cupes },
+        { name: "汕头大学", src: stu },
+        { name: "内蒙古脑科医院", src: nmgBrain },
+        { name: "龙华医院", src: longhua },
+        { name: "中国科协", src: partner8 },
+        { name: "福州第二医院", src: foozhou2 },
+        { name: "厦门大学", src: partner10 },
+      ]
+    : [
+        { name: "Tsinghua University", src: tsinghua },
+        { name: "UCSF", src: ucsf },
+        { name: "Harvard Medical School", src: harvard },
+        { name: "Peking University Health Science Center", src: pkuhsc },
+        { name: "Ruijin Hospital", src: ruijin },
+        { name: "The Chinese University of Hong Kong", src: cuhk },
+        { name: "Sir Run Run Shaw Hospital", src: srrsh },
+        { name: "West China Hospital", src: huaxi },
+        { name: "Beijing Huilongguan Hospital", src: hlgh },
+        { name: "Takeda", src: takeda },
+        { name: "Beijing Tsinghua Changgung Hospital", src: btch },
+        { name: "Beijing Children's Hospital", src: bch },
+        { name: "Capital University of Physical Education and Sports", src: cupes },
+        { name: "Shantou University", src: stu },
+        { name: "Inner Mongolia Brain Hospital", src: nmgBrain },
+        { name: "Longhua Hospital", src: longhua },
+        { name: "China Association for Science and Technology", src: partner8 },
+        { name: "Fuzhou Second Hospital", src: foozhou2 },
+        { name: "Xiamen University", src: partner10 },
+      ];
+
   return (
     <div className="min-h-screen bg-background">
       <Topbar />
@@ -109,25 +135,35 @@ const Index = () => {
               </FadeIn>
               <FadeIn delay={0.1}>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6">
-                  以AI深度解码睡眠
+                  {isZh ? "以AI深度解码睡眠" : "Decode Sleep with AI"}
                   <br />
-                  <span className="text-gradient-primary text-4xl">从无感监测到精准医学洞察</span>
+                  <span className="text-gradient-primary text-4xl">
+                    {isZh ? "从无感监测到精准医学洞察" : "From unobtrusive monitoring to precision medical insights"}
+                  </span>
                 </h1>
               </FadeIn>
               <FadeIn delay={0.2}>
                 <div className="text-muted-foreground text-sm md:text-base leading-relaxed space-y-3 mb-8">
-                  <p className="font-medium text-foreground">我们的目标：</p>
-                  <p>通过AI赋能的医疗级数字健康产品，实现数字生物标志物的采集和计算，为消费者提供疾病的筛查预警和长期健康管理；</p>
-                  <p>在循证医学框架下，助力医生通过长期数据积累和真实世界研究，不断提升诊断、干预和健康服务能力。</p>
+                  <p className="font-medium text-foreground">{isZh ? "我们的目标：" : "Our mission:"}</p>
+                  <p>
+                    {isZh
+                      ? "通过AI赋能的医疗级数字健康产品，实现数字生物标志物的采集和计算，为消费者提供疾病的筛查预警和长期健康管理；"
+                      : "With AI-enabled, medical-grade digital health products, we collect and compute digital biomarkers to deliver screening, early warning, and long-term health management for consumers."}
+                  </p>
+                  <p>
+                    {isZh
+                      ? "在循证医学框架下，助力医生通过长期数据积累和真实世界研究，不断提升诊断、干预和健康服务能力。"
+                      : "Within an evidence-based medicine framework, we help clinicians continuously improve diagnosis, intervention, and care through longitudinal data and real-world research."}
+                  </p>
                 </div>
               </FadeIn>
               <FadeIn delay={0.3}>
                 <div className="flex flex-wrap gap-3">
                   <a href="#capabilities" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity">
-                    查看方案 <ArrowRight className="w-4 h-4" />
+                    {isZh ? "查看方案" : "Explore Solutions"} <ArrowRight className="w-4 h-4" />
                   </a>
                   <a href="#contact" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium border rounded-lg text-foreground hover:bg-muted transition-colors">
-                    合作咨询
+                    {isZh ? "合作咨询" : "Partner With Us"}
                   </a>
                 </div>
               </FadeIn>
@@ -141,13 +177,17 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 1) 核心技术 Technology */}
+      {/* 1) Core Technology */}
       <section id="capabilities" className="section-spacing bg-surface-sunken">
         <div className="max-w-7xl mx-auto section-padding">
           <FadeIn>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">核心技术</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              {isZh ? "核心技术" : "Core Technology"}
+            </h2>
             <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-10 max-w-3xl">
-              以居家无感采集为入口，经 AI 基座模型解码生理信号，输出数字生物标志物，驱动个性化健康干预——形成从感知到行动的完整闭环
+              {isZh
+                ? "以居家无感采集为入口，经 AI 基座模型解码生理信号，输出数字生物标志物，驱动个性化健康干预——形成从感知到行动的完整闭环"
+                : "Starting from unobtrusive at-home sensing, our AI foundation models decode physiological signals into digital biomarkers that power personalized interventions—closing the loop from sensing to action."}
             </p>
           </FadeIn>
 
@@ -155,26 +195,43 @@ const Index = () => {
           <FadeIn>
             <div className="bg-card rounded-xl border p-6 mb-4">
               <div className="text-center mb-5">
-                <h3 className="text-lg font-bold text-foreground flex items-center justify-center gap-2"><span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">1</span>多模态睡眠监测数据</h3>
-                <p className="text-xs text-muted-foreground mt-1">全球最大单机构睡眠数据库，构筑模型训练与验证核心壁垒</p>
+                <h3 className="text-lg font-bold text-foreground flex items-center justify-center gap-2">
+                  <span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">1</span>
+                  {isZh ? "多模态睡眠监测数据" : "Multimodal Sleep Monitoring Data"}
+                </h3>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {isZh ? "全球最大单机构睡眠数据库，构筑模型训练与验证核心壁垒" : "One of the largest single-site sleep datasets—built for model training and clinical-grade validation."}
+                </p>
               </div>
               <div className="flex items-center justify-center gap-2 flex-wrap mb-4">
-                {["脑电 EEG", "呼吸", "心跳 BCG", "体动", "血氧"].map((signal) => (
+                {(isZh ? ["脑电 EEG", "呼吸", "心跳 BCG", "体动", "血氧"] : ["EEG", "Respiration", "BCG Heartbeat", "Movement", "SpO₂"]).map((signal) => (
                   <span key={signal} className="text-[11px] px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium">{signal}</span>
                 ))}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="bg-background rounded-lg border p-3 text-center">
-                  <p className="text-xs font-medium text-foreground">自研无感睡眠监测垫，真实世界数据采集</p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">居家场景 · 长期连续 · 多病种覆盖</p>
+                  <p className="text-xs font-medium text-foreground">
+                    {isZh ? "自研无感睡眠监测垫，真实世界数据采集" : "Proprietary unobtrusive sleep mat for real-world data capture"}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                    {isZh ? "居家场景 · 长期连续 · 多病种覆盖" : "At-home · Longitudinal · Multi-condition coverage"}
+                  </p>
                 </div>
                 <div className="bg-background rounded-lg border p-3 text-center">
-                  <p className="text-xs font-medium text-foreground">全球最大睡眠数据底座</p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">PSG 80万+ 小时 · BCG 600万+ 小时</p>
+                  <p className="text-xs font-medium text-foreground">
+                    {isZh ? "全球最大睡眠数据底座" : "A global-scale sleep data foundation"}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                    {isZh ? "PSG 80万+ 小时 · BCG 600万+ 小时" : "PSG 800k+ hours · BCG 6M+ hours"}
+                  </p>
                 </div>
                 <div className="bg-background rounded-lg border p-3 text-center">
-                  <p className="text-xs font-medium text-foreground">多终端设备采集数据支持</p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">院内/便携 PSG · 监测垫 · 可穿戴设备</p>
+                  <p className="text-xs font-medium text-foreground">
+                    {isZh ? "多终端设备采集数据支持" : "Multi-device data acquisition support"}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                    {isZh ? "院内/便携 PSG · 监测垫 · 可穿戴设备" : "In-lab/portable PSG · Sleep mat · Wearables"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -189,13 +246,22 @@ const Index = () => {
           <FadeIn delay={0.1}>
             <div className="bg-card rounded-xl border p-6 mb-4">
               <div className="text-center mb-5">
-                <h3 className="text-lg font-bold text-foreground flex items-center justify-center gap-2"><span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">2</span>从生成式AI大模型到数字生物标志物</h3>
-                <p className="text-xs text-muted-foreground mt-1">逼近临床金标准PSG的监测能力</p>
+                <h3 className="text-lg font-bold text-foreground flex items-center justify-center gap-2">
+                  <span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">2</span>
+                  {isZh ? "从生成式AI大模型到数字生物标志物" : "From Foundation Models to Digital Biomarkers"}
+                </h3>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {isZh ? "逼近临床金标准PSG的监测能力" : "Monitoring performance approaching PSG gold standard"}
+                </p>
               </div>
 
               <div className="relative bg-gradient-to-br from-primary/5 to-primary/15 rounded-lg p-4 border border-primary/20 mb-4">
-                <p className="text-sm font-semibold text-foreground text-center mb-1">生理信号基座模型</p>
-                <p className="text-[11px] text-muted-foreground text-center">多任务自监督预训练 · 跨模态特征对齐</p>
+                <p className="text-sm font-semibold text-foreground text-center mb-1">
+                  {isZh ? "生理信号基座模型" : "Physiological Foundation Model"}
+                </p>
+                <p className="text-[11px] text-muted-foreground text-center">
+                  {isZh ? "多任务自监督预训练 · 跨模态特征对齐" : "Multi-task self-supervised pretraining · Cross-modal feature alignment"}
+                </p>
               </div>
 
               <div className="flex justify-center py-1 mb-3">
@@ -295,8 +361,12 @@ const Index = () => {
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-2">
                     <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                   </div>
-                  <p className="font-medium text-foreground mb-1 text-sm">预防 + 行为管理</p>
-                  <p className="text-muted-foreground text-xs">结合体位干预、睡眠行为指导与风险预防策略</p>
+                  <p className="font-medium text-foreground mb-1 text-sm">
+                    {isZh ? "预防 + 行为管理" : "Prevention + Behavioral Coaching"}
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    {isZh ? "结合体位干预、睡眠行为指导与风险预防策略" : "Combine positional interventions, sleep coaching, and risk prevention strategies"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -308,27 +378,31 @@ const Index = () => {
       <section id="products" className="section-spacing">
         <div className="max-w-7xl mx-auto section-padding">
           <FadeIn>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">产品矩阵</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              {isZh ? "产品矩阵" : "Products"}
+            </h2>
             <p className="text-muted-foreground text-sm md:text-base mb-10 max-w-2xl">
-              两条产品线共享同一底层能力：无感采集与AI计算
+              {isZh ? "两条产品线共享同一底层能力：无感采集与AI计算" : "Two product lines share the same foundation: unobtrusive sensing and AI analytics."}
             </p>
           </FadeIn>
           <div className="grid md:grid-cols-2 gap-6">
             <FadeIn>
               <Link to="/product1" className="group bg-card rounded-2xl border overflow-hidden block hover:shadow-lg transition-shadow">
                 <div className="aspect-video bg-muted overflow-hidden">
-                  <img src={m2Layout} alt="睡眠监测垫" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={m2Layout} alt={isZh ? "睡眠监测垫" : "Sleep Monitoring Mat"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-6">
-                  <span className="text-xs font-medium text-primary mb-2 block">产品一</span>
-                  <h3 className="text-lg font-semibold text-foreground mb-3">睡眠监测垫（零负担居家监测）</h3>
+                  <span className="text-xs font-medium text-primary mb-2 block">{isZh ? "产品一" : "Product 1"}</span>
+                  <h3 className="text-lg font-semibold text-foreground mb-3">
+                    {isZh ? "睡眠监测垫（零负担居家监测）" : "Sleep Monitoring Mat (Zero-burden at-home monitoring)"}
+                  </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground mb-4">
-                    <li>· 枕下放置即可监测，零穿戴、零接触、零配置</li>
-                    <li>· 自动输出睡眠分期、AHI及多维生理指标</li>
-                    <li>· 面向长期筛查预警、随访管理与科研数据积累</li>
+                    <li>{isZh ? "· 枕下放置即可监测，零穿戴、零接触、零配置" : "· Place under the pillow—no wearables, no contact, no setup"}</li>
+                    <li>{isZh ? "· 自动输出睡眠分期、AHI及多维生理指标" : "· Automatic sleep staging, AHI, and multi-dimensional biomarkers"}</li>
+                    <li>{isZh ? "· 面向长期筛查预警、随访管理与科研数据积累" : "· Built for screening, longitudinal follow-up, and research data accumulation"}</li>
                   </ul>
                   <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                    查看详情 <ChevronRight className="w-4 h-4" />
+                    {isZh ? "查看详情" : "View details"} <ChevronRight className="w-4 h-4" />
                   </span>
                 </div>
               </Link>
@@ -336,21 +410,25 @@ const Index = () => {
             <FadeIn delay={0.1}>
               <Link to="/product2" className="group bg-card rounded-2xl border overflow-hidden block hover:shadow-lg transition-shadow">
                 <div className="aspect-video bg-muted overflow-hidden">
-                  <img src={pillowHero} alt="AI智能止鼾枕" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={pillowHero} alt={isZh ? "AI智能止鼾枕" : "AI Anti-snoring Pillow"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-medium text-primary">产品二</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent text-accent-foreground font-medium">即将发布</span>
+                    <span className="text-xs font-medium text-primary">{isZh ? "产品二" : "Product 2"}</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent text-accent-foreground font-medium">
+                      {isZh ? "即将发布" : "Coming soon"}
+                    </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-3">AI智能止鼾枕（睡眠干预方向）</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-3">
+                    {isZh ? "AI智能止鼾枕（睡眠干预方向）" : "AI Anti-snoring Pillow (Sleep Intervention)"}
+                  </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground mb-4">
-                    <li>· 聚焦打鼾与睡眠呼吸暂停人群的干预需求</li>
-                    <li>· 结合实时识别与行为/体位干预思路，提升夜间睡眠质量</li>
-                    <li>· 通过志愿者与真实场景数据持续迭代干预效果</li>
+                    <li>{isZh ? "· 聚焦打鼾与睡眠呼吸暂停人群的干预需求" : "· Designed for snoring and sleep apnea intervention needs"}</li>
+                    <li>{isZh ? "· 结合实时识别与行为/体位干预思路，提升夜间睡眠质量" : "· Real-time detection + behavioral/positional interventions to improve sleep quality"}</li>
+                    <li>{isZh ? "· 通过志愿者与真实场景数据持续迭代干预效果" : "· Continuously improved with volunteer studies and real-world data"}</li>
                   </ul>
                   <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                    查看详情 <ChevronRight className="w-4 h-4" />
+                    {isZh ? "查看详情" : "View details"} <ChevronRight className="w-4 h-4" />
                   </span>
                 </div>
               </Link>
@@ -363,9 +441,11 @@ const Index = () => {
       <section id="scenes" className="section-spacing bg-surface-sunken">
         <div className="max-w-7xl mx-auto section-padding">
           <FadeIn>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">应用场景</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              {isZh ? "应用场景" : "Use Cases"}
+            </h2>
             <p className="text-muted-foreground text-sm md:text-base mb-10 max-w-2xl">
-              以居家无感采集为入口，形成可用于筛查预警、随访管理与科研的长期数据链路
+              {isZh ? "以居家无感采集为入口，形成可用于筛查预警、随访管理与科研的长期数据链路" : "Build a long-term data pipeline for screening, follow-up, and research—starting from unobtrusive at-home sensing."}
             </p>
           </FadeIn>
 
@@ -373,20 +453,20 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                title: "居家连续监测",
-                desc: "通过无感监测形成连续睡眠画像，帮助用户和医生看到「单次检查」之外的长期变化趋势。",
+                title: isZh ? "居家连续监测" : "Continuous At-home Monitoring",
+                desc: isZh ? "通过无感监测形成连续睡眠画像，帮助用户和医生看到「单次检查」之外的长期变化趋势。" : "Create a continuous sleep profile to reveal longitudinal trends beyond one-off tests—for both users and clinicians.",
                 images: [home1, home2],
               },
               {
-                title: "数字化实时干预",
-                subtitle: "睡眠相关疾病的全周期管理",
-                desc: "覆盖筛查/诊断、分级、治疗全流程。结合干预枕与AI助眠师，实现个体化睡眠干预与健康管理。",
+                title: isZh ? "数字化实时干预" : "Digital Real-time Intervention",
+                subtitle: isZh ? "睡眠相关疾病的全周期管理" : "End-to-end management for sleep-related conditions",
+                desc: isZh ? "覆盖筛查/诊断、分级、治疗全流程。结合干预枕与AI助眠师，实现个体化睡眠干预与健康管理。" : "Cover screening/diagnosis, stratification, and treatment workflows. Combine an intervention pillow with an AI sleep coach for personalized interventions and health management.",
                 images: [aihealth2],
               },
               {
-                title: "临床科研赋能",
-                subtitle: "定义下一代医学诊断标准",
-                desc: "基于院内标准流程开展筛查、随访与科研协同，连接临床决策与居家长期监测数据；助力医疗机构开展长程、客观的真实世界研究。",
+                title: isZh ? "临床科研赋能" : "Clinical + Research Enablement",
+                subtitle: isZh ? "定义下一代医学诊断标准" : "Shaping next-generation diagnostic standards",
+                desc: isZh ? "基于院内标准流程开展筛查、随访与科研协同，连接临床决策与居家长期监测数据；助力医疗机构开展长程、客观的真实世界研究。" : "Integrate in-hospital workflows for screening, follow-up, and research, bridging clinical decisions with long-term at-home data to support objective, longitudinal real-world studies.",
                 images: [hospital1, hospital2],
               },
             ].map((scene, i) => (
@@ -400,7 +480,9 @@ const Index = () => {
                     ))}
                   </div>
                   <div className="p-5">
-                    <span className="text-xs text-muted-foreground font-mono mb-1 block">场景 0{i + 1}</span>
+                    <span className="text-xs text-muted-foreground font-mono mb-1 block">
+                      {isZh ? `场景 0${i + 1}` : `Use case 0${i + 1}`}
+                    </span>
                     <h3 className="text-base font-semibold text-foreground mb-1">{scene.title}</h3>
                     
                     <p className="text-sm text-muted-foreground leading-relaxed">{scene.desc}</p>
@@ -414,21 +496,30 @@ const Index = () => {
           <FadeIn delay={0.2}>
             <div className="mt-16">
               <h3 className="text-xl font-bold text-foreground mb-3 md:text-xl">
-                从家庭监测到临床科研，一套数据链路贯通
+                {isZh ? "从家庭监测到临床科研，一套数据链路贯通" : "One data pipeline from home monitoring to clinical research"}
               </h3>
               <p className="text-muted-foreground text-sm md:text-base mb-8 max-w-2xl">
-                相较院内 PSG 的导联复杂、成本高、首夜偏差等问题，五季医学将「便捷 + 准确 + 持续」放在同一方案中
+                {isZh
+                  ? "相较院内 PSG 的导联复杂、成本高、首夜偏差等问题，五季医学将「便捷 + 准确 + 持续」放在同一方案中"
+                  : "Compared with in-lab PSG (complex leads, high cost, first-night effect), we bring convenience, accuracy, and continuity into a single solution."}
               </p>
             </div>
           </FadeIn>
 
           <div className="grid md:grid-cols-4 gap-4 mb-6">
-            {[
-              "监测垫枕下放置，自动启动整夜信号采集",
-              "基于 AI 模型完成睡眠分期与呼吸事件分析",
-              "小程序推送每日摘要与风险预警指标",
-              "医生/科研端查看实时指标、长期趋势与原始数据",
-            ].map((step, i) => (
+            {(isZh
+              ? [
+                  "监测垫枕下放置，自动启动整夜信号采集",
+                  "基于 AI 模型完成睡眠分期与呼吸事件分析",
+                  "小程序推送每日摘要与风险预警指标",
+                  "医生/科研端查看实时指标、长期趋势与原始数据",
+                ]
+              : [
+                  "Place the mat under the pillow to automatically capture signals overnight",
+                  "AI models perform sleep staging and respiratory event analysis",
+                  "Mini-program delivers daily summaries and risk alerts",
+                  "Clinicians/researchers review real-time metrics, trends, and raw data",
+                ]).map((step, i) => (
               <FadeIn key={i} delay={0.25 + i * 0.1}>
                 <div className="bg-card rounded-xl border p-5 h-full">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary mb-3">
@@ -447,18 +538,28 @@ const Index = () => {
       <section id="research" className="section-spacing">
         <div className="max-w-7xl mx-auto section-padding">
           <FadeIn>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">科研成果</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">
+              {isZh ? "科研成果" : "Research"}
+            </h2>
           </FadeIn>
 
           <FadeIn>
             <div className="mb-12">
-              <h3 className="text-lg font-semibold text-foreground mb-4">数据库建设</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                {isZh ? "数据库建设" : "Dataset Building"}
+              </h3>
               <div className="grid md:grid-cols-3 gap-4 mb-6">
-                {[
-                  { num: "120万+小时", label: "11万+人次回顾性多导睡眠监测数据" },
-                  { num: "5000+晚", label: "多导睡眠监测和心动图平行数据" },
-                  { num: "600万+小时", label: "居家睡眠监测心动图数据" },
-                ].map((d, i) => (
+                {(isZh
+                  ? [
+                      { num: "120万+小时", label: "11万+人次回顾性多导睡眠监测数据" },
+                      { num: "5000+晚", label: "多导睡眠监测和心动图平行数据" },
+                      { num: "600万+小时", label: "居家睡眠监测心动图数据" },
+                    ]
+                  : [
+                      { num: "1.2M+ hours", label: "110k+ retrospective PSG studies" },
+                      { num: "5,000+ nights", label: "Paired PSG + ECG parallel data" },
+                      { num: "6M+ hours", label: "At-home sleep BCG data" },
+                    ]).map((d, i) => (
                   <div key={i} className="bg-card border rounded-xl p-5">
                     <p className="text-xl font-bold text-primary mb-1">{d.num}</p>
                     <p className="text-xs text-muted-foreground">{d.label}</p>
@@ -467,17 +568,49 @@ const Index = () => {
               </div>
               <div className="bg-card border rounded-xl p-6">
                 <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                  <li className="flex gap-2"><span className="text-primary">•</span>高质量数据库标准化流程与严格标注质控流程</li>
-                  <li className="flex gap-2"><span className="text-primary">•</span>与公开代表性研究相比，在患者人数、总小时数和数据集数量上具备显著优势</li>
-                  <li className="flex gap-2"><span className="text-primary">•</span>支持后续模型训练、临床研究和产品迭代</li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">•</span>
+                    {isZh ? "高质量数据库标准化流程与严格标注质控流程" : "Standardized dataset pipelines with strict annotation QA/QC"}
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">•</span>
+                    {isZh ? "与公开代表性研究相比，在患者人数、总小时数和数据集数量上具备显著优势" : "Significant scale advantages vs. representative public studies (participants, total hours, dataset count)"}
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">•</span>
+                    {isZh ? "支持后续模型训练、临床研究和产品迭代" : "Built to support model training, clinical studies, and product iteration"}
+                  </li>
                 </ul>
                 <div className="border-t pt-5">
-                  <p className="text-[11px] text-muted-foreground mb-4 text-center tracking-wide">与已知数据规模最大睡眠领域学术研究的比较*</p>
+                  <p className="text-[11px] text-muted-foreground mb-4 text-center tracking-wide">
+                    {isZh ? "与已知数据规模最大睡眠领域学术研究的比较*" : "Comparison with the largest-known sleep research dataset*"}
+                  </p>
                   <div className="flex items-end justify-center gap-12 md:gap-16">
                     {[
-                      { label: "患者人数", ours: 240000, theirs: 15660, ratio: "15倍", oursLabel: "240,000", theirsLabel: "15,660" },
-                      { label: "生理信号总小时数", ours: 1992000, theirs: 159392, ratio: "13倍", oursLabel: "1,992,000", theirsLabel: "159,392" },
-                      { label: "数据集数量", ours: 52, theirs: 21, ratio: "2.5倍", oursLabel: "52", theirsLabel: "21" },
+                      {
+                        label: isZh ? "患者人数" : "Participants",
+                        ours: 240000,
+                        theirs: 15660,
+                        ratio: isZh ? "15倍" : "15x",
+                        oursLabel: "240,000",
+                        theirsLabel: "15,660",
+                      },
+                      {
+                        label: isZh ? "生理信号总小时数" : "Total signal hours",
+                        ours: 1992000,
+                        theirs: 159392,
+                        ratio: isZh ? "13倍" : "13x",
+                        oursLabel: "1,992,000",
+                        theirsLabel: "159,392",
+                      },
+                      {
+                        label: isZh ? "数据集数量" : "Datasets",
+                        ours: 52,
+                        theirs: 21,
+                        ratio: isZh ? "2.5倍" : "2.5x",
+                        oursLabel: "52",
+                        theirsLabel: "21",
+                      },
                     ].map((item, i) => {
                       const maxH = 90;
                       const oursH = maxH;
@@ -502,7 +635,7 @@ const Index = () => {
                   </div>
                   <div className="flex justify-center gap-5 mt-3">
                     <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground"><span className="w-2.5 h-2.5 rounded bg-muted/80 inline-block" />U-Sleep</span>
-                    <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground"><span className="w-2.5 h-2.5 rounded bg-primary/80 inline-block" />五季</span>
+                    <span className="flex items-center gap-1.5 text-[10px] text-muted-foreground"><span className="w-2.5 h-2.5 rounded bg-primary/80 inline-block" />{isZh ? "五季" : "Five Seasons"}</span>
                   </div>
                 </div>
               </div>
@@ -511,14 +644,23 @@ const Index = () => {
 
           <FadeIn>
             <div className="mb-12">
-              <h3 className="text-lg font-semibold text-foreground mb-4">睡眠生理活动监控</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                {isZh ? "睡眠生理活动监控" : "Physiological Monitoring in Sleep"}
+              </h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                {[
-                  { label: "心率误差", value: "< ±1.8 次/分" },
-                  { label: "呼吸率误差", value: "< ±0.4 次/分" },
-                  { label: "睡眠分期准确性", value: "0.85 / κ=0.772" },
-                  { label: "OSA 诊断", value: "敏感性/特异性 >0.92" },
-                ].map((m, i) => (
+                {(isZh
+                  ? [
+                      { label: "心率误差", value: "< ±1.8 次/分" },
+                      { label: "呼吸率误差", value: "< ±0.4 次/分" },
+                      { label: "睡眠分期准确性", value: "0.85 / κ=0.772" },
+                      { label: "OSA 诊断", value: "敏感性/特异性 >0.92" },
+                    ]
+                  : [
+                      { label: "Heart rate error", value: "< ±1.8 bpm" },
+                      { label: "Respiratory rate error", value: "< ±0.4 rpm" },
+                      { label: "Sleep staging accuracy", value: "0.85 / κ=0.772" },
+                      { label: "OSA screening", value: "Sensitivity/Specificity >0.92" },
+                    ]).map((m, i) => (
                   <div key={i} className="bg-card border rounded-xl p-4">
                     <p className="text-xs text-muted-foreground mb-1">{m.label}</p>
                     <p className="text-sm font-semibold text-foreground">{m.value}</p>
@@ -527,15 +669,26 @@ const Index = () => {
               </div>
               <div className="bg-card border rounded-xl p-6">
                 <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                  <li className="flex gap-2"><span className="text-primary">•</span>基于 BCG 信号，在复杂条件下实现专业级生理参数感知</li>
-                  <li className="flex gap-2"><span className="text-primary">•</span>可与 PSG-ECG 等标准信号进行关键波形对齐验证</li>
-                  <li className="flex gap-2"><span className="text-primary">•</span>支持医疗级筛查预警与居家长期跟踪</li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">•</span>
+                    {isZh ? "基于 BCG 信号，在复杂条件下实现专业级生理参数感知" : "Professional-grade physiological sensing from BCG, robust to real-world complexity"}
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">•</span>
+                    {isZh ? "可与 PSG-ECG 等标准信号进行关键波形对齐验证" : "Waveform alignment validation against standard signals such as PSG-ECG"}
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">•</span>
+                    {isZh ? "支持医疗级筛查预警与居家长期跟踪" : "Built for medical-grade screening/alerts and long-term at-home tracking"}
+                  </li>
                 </ul>
                 <div className="border-t pt-5">
                   <div className="grid md:grid-cols-2 gap-8">
                     {/* 睡眠分期比较 */}
                     <div>
-                      <p className="text-[11px] text-muted-foreground mb-3 text-center tracking-wide">五季监测垫与穿戴式/科研设备的比较（四分期）</p>
+                      <p className="text-[11px] text-muted-foreground mb-3 text-center tracking-wide">
+                        {isZh ? "五季监测垫与穿戴式/科研设备的比较（四分期）" : "Sleep staging comparison (4-stage) vs. wearable/research devices"}
+                      </p>
                       <div className="flex items-end justify-center gap-6">
                         {[
                           { label: "Apple Watch", accuracy: null, kappa: 0.63 },
@@ -823,19 +976,28 @@ const Index = () => {
       <section id="evidence" className="section-spacing bg-surface-sunken">
         <div className="max-w-7xl mx-auto section-padding">
           <FadeIn>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">公司动态</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              {isZh ? "公司动态" : "Updates"}
+            </h2>
             <p className="text-muted-foreground mb-10 max-w-2xl text-base">
-              五季医学阶段性成果与里程碑
+              {isZh ? "五季医学阶段性成果与里程碑" : "Milestones and highlights"}
             </p>
           </FadeIn>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-            {[
-              { num: "50+", label: "家医院开展科研合作" },
-              { num: "2", label: "项医疗器械注册申请" },
-              { num: "10+8", label: "项专利及软件著作权" },
-              { num: "46", label: "篇SCI文章（累计影响因子253）" },
-            ].map((s, i) => (
+            {(isZh
+              ? [
+                  { num: "50+", label: "家医院开展科研合作" },
+                  { num: "2", label: "项医疗器械注册申请" },
+                  { num: "10+8", label: "项专利及软件著作权" },
+                  { num: "46", label: "篇SCI文章（累计影响因子253）" },
+                ]
+              : [
+                  { num: "50+", label: "Hospitals in research collaborations" },
+                  { num: "2", label: "Medical device registration applications" },
+                  { num: "10+8", label: "Patents + software copyrights" },
+                  { num: "46", label: "SCI papers (IF 253 total)" },
+                ]).map((s, i) => (
               <FadeIn key={i} delay={i * 0.08}>
                 <div className="text-center bg-card border rounded-xl p-5">
                   <p className="text-2xl md:text-3xl font-bold text-primary mb-1">{s.num}</p>
@@ -846,34 +1008,34 @@ const Index = () => {
           </div>
 
           <FadeIn>
-            <div className="relative max-w-2xl mx-auto">
-              <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
+              <div className="relative max-w-2xl mx-auto">
+                <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
               {[
                  {
                    date: "2025年9月25日",
-                   title: "五季医学获批第二类医疗器械注册证",
+                   title: isZh ? "五季医学获批第二类医疗器械注册证" : "Class II medical device registration approved",
                    link: "https://mp.weixin.qq.com/s/g2A5vrb_avVuZk5J1F9Dwg",
                   points: [
-                    "核心产品睡眠监测垫通过药监审批，合规能力升级",
-                    "持续推进 AI+医疗产品研发与多场景落地",
+                    isZh ? "核心产品睡眠监测垫通过药监审批，合规能力升级" : "Core sleep monitoring mat approved, strengthening compliance readiness",
+                    isZh ? "持续推进 AI+医疗产品研发与多场景落地" : "Accelerating AI+medical product R&D and real-world deployments",
                   ],
                 },
                  {
                    date: "2025年12月31日",
-                   title: "共建北京市重点实验室获批",
+                   title: isZh ? "共建北京市重点实验室获批" : "Beijing key laboratory (joint) approved",
                    link: "https://mp.weixin.qq.com/s/XevDbAAgpuGqLiC7KVapbw",
                   points: [
-                    "围绕睡眠疾病诊疗智能化开展联合科研攻关",
-                    "强化产学研协同，提升模型转化与临床价值",
+                    isZh ? "围绕睡眠疾病诊疗智能化开展联合科研攻关" : "Joint research to advance intelligent diagnosis and care for sleep disorders",
+                    isZh ? "强化产学研协同，提升模型转化与临床价值" : "Stronger academia-industry collaboration to boost translation and clinical impact",
                   ],
                 },
                  {
                    date: "2026年2月13日",
-                   title: "面向真实世界睡眠医学的多模态基座模型",
+                   title: isZh ? "面向真实世界睡眠医学的多模态基座模型" : "A multimodal foundation model for real-world sleep medicine",
                    link: "https://mp.weixin.qq.com/s/1jYXS6sodqHN3TMxngqajg",
                   points: [
-                    "提出 sleep2vec：统一多模态生理信号表征",
-                    "支持跨设备、跨场景的睡眠监测与风险识别",
+                    isZh ? "提出 sleep2vec：统一多模态生理信号表征" : "Introduced sleep2vec: unified representations for multimodal physiological signals",
+                    isZh ? "支持跨设备、跨场景的睡眠监测与风险识别" : "Enables cross-device, cross-scenario sleep monitoring and risk detection",
                   ],
                 },
               ].map((item, i) => (
@@ -906,26 +1068,38 @@ const Index = () => {
       <section id="about" className="section-spacing">
         <div className="max-w-7xl mx-auto section-padding">
           <FadeIn>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-12">关于我们</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-12">
+              {isZh ? "关于我们" : "About Us"}
+            </h2>
           </FadeIn>
 
           <FadeIn delay={0.05}>
             <h3 className="text-lg font-semibold text-foreground mb-6 flex items-center gap-2">
               <Building2 className="w-5 h-5 text-primary" />
-              公司概况
+              {isZh ? "公司概况" : "Company Overview"}
             </h3>
           </FadeIn>
           <FadeIn delay={0.1}>
             <div className="bg-card border rounded-xl p-6 md:p-8 mb-6">
-              <p className="text-sm text-muted-foreground leading-relaxed mb-1">创新驱动的数字医疗先行者</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-1">
+                {isZh ? "创新驱动的数字医疗先行者" : "Innovation-driven digital healthcare pioneer"}
+              </p>
               <ul className="space-y-2 mt-4">
-                {[
-                  "成立于 2022 年，创新型数字医疗科技公司",
-                  "致力于通过 AI 为用户提供创新、权威、便捷的医疗健康服务",
-                  "AI 赋能数字医疗产品，实现数字生物标志物的采集和计算",
-                  "帮助用户进行疾病筛查预警和长期健康管理",
-                  "循证医学框架下，助力医生通过真实世界研究提升诊断与干预能力",
-                ].map((item, i) => (
+                {(isZh
+                  ? [
+                      "成立于 2022 年，创新型数字医疗科技公司",
+                      "致力于通过 AI 为用户提供创新、权威、便捷的医疗健康服务",
+                      "AI 赋能数字医疗产品，实现数字生物标志物的采集和计算",
+                      "帮助用户进行疾病筛查预警和长期健康管理",
+                      "循证医学框架下，助力医生通过真实世界研究提升诊断与干预能力",
+                    ]
+                  : [
+                      "Founded in 2022 as an innovative digital healthcare company",
+                      "Delivering credible and convenient health services with AI",
+                      "AI-powered products to collect and compute digital biomarkers",
+                      "Supporting screening, early warning, and long-term health management",
+                      "Advancing diagnosis and interventions through real-world evidence within an evidence-based framework",
+                    ]).map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-foreground">
                     <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                     {item}
@@ -940,15 +1114,22 @@ const Index = () => {
               <div className="bg-card border rounded-xl p-6 h-full">
                 <h4 className="text-base font-semibold text-foreground mb-4 flex items-center gap-2">
                   <Award className="w-4 h-4 text-accent-foreground" />
-                  荣誉认可
+                  {isZh ? "荣誉认可" : "Recognition"}
                 </h4>
                 <ul className="space-y-2">
-                  {[
-                    "北京市科技型中小企业 · 创新型中小企业",
-                    "中关村高新技术企业",
-                    '合作获批"睡眠呼吸疾病诊治设备及系统北京市重点实验室"',
-                    '入选"首都医学科技创新成果转化优促计划"',
-                  ].map((item, i) => (
+                  {(isZh
+                    ? [
+                        "北京市科技型中小企业 · 创新型中小企业",
+                        "中关村高新技术企业",
+                        '合作获批"睡眠呼吸疾病诊治设备及系统北京市重点实验室"',
+                        '入选"首都医学科技创新成果转化优促计划"',
+                      ]
+                    : [
+                        "Beijing tech SME · Innovative SME",
+                        "Zhongguancun high-tech enterprise",
+                        "Jointly approved: Beijing Key Laboratory (sleep respiratory diagnosis & treatment devices and systems)",
+                        "Selected for the Capital Medical S&T innovation translation program",
+                      ]).map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent-foreground shrink-0" />
                       {item}
@@ -962,20 +1143,32 @@ const Index = () => {
               <div className="bg-card border rounded-xl p-6 h-full">
                 <h4 className="text-base font-semibold text-foreground mb-4 flex items-center gap-2">
                   <FileCheck className="w-4 h-4 text-primary" />
-                  知识产权
+                  {isZh ? "知识产权" : "IP & Patents"}
                 </h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="group cursor-pointer">
                     <div className="rounded-lg overflow-hidden border bg-muted mb-2">
-                      <img src={patentInvention} alt="发明专利：睡眠分期方法及装置" className="w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <img
+                        src={patentInvention}
+                        alt={isZh ? "发明专利：睡眠分期方法及装置" : "Invention patent: sleep staging method and device"}
+                        className="w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                    <p className="text-xs text-muted-foreground text-center">发明专利：睡眠分期方法及装置</p>
+                    <p className="text-xs text-muted-foreground text-center">
+                      {isZh ? "发明专利：睡眠分期方法及装置" : "Invention patent: sleep staging method and device"}
+                    </p>
                   </div>
                   <div className="group cursor-pointer">
                     <div className="rounded-lg overflow-hidden border bg-muted mb-2">
-                      <img src={patentUtility} alt="实用新型专利：睡眠监测垫" className="w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <img
+                        src={patentUtility}
+                        alt={isZh ? "实用新型专利：睡眠监测垫" : "Utility model patent: sleep monitoring mat"}
+                        className="w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                    <p className="text-xs text-muted-foreground text-center">实用新型专利：睡眠监测垫</p>
+                    <p className="text-xs text-muted-foreground text-center">
+                      {isZh ? "实用新型专利：睡眠监测垫" : "Utility model patent: sleep monitoring mat"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -983,24 +1176,26 @@ const Index = () => {
           </div>
 
           <FadeIn delay={0.25}>
-            <h3 className="text-lg font-semibold text-foreground mb-6 mt-12 flex items-center gap-2">核心团队</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-6 mt-12 flex items-center gap-2">
+              {isZh ? "核心团队" : "Leadership"}
+            </h3>
           </FadeIn>
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             {[
               {
                 name: "王小川",
-                role: "创始人",
-                desc: "搜狗创始人、原 CEO，清华大学工学博士，同时担任百川智能创始人。",
+                role: isZh ? "创始人" : "Founder",
+                desc: isZh ? "搜狗创始人、原 CEO，清华大学工学博士，同时担任百川智能创始人。" : "Founder and former CEO of Sogou; PhD in Engineering from Tsinghua University; also founder of Baichuan Intelligence.",
               },
               {
                 name: "杨洪涛",
-                role: "联合创始人",
-                desc: "搜狗原 CTO，主导研发搜狗输入法及浏览器。",
+                role: isZh ? "联合创始人" : "Co-founder",
+                desc: isZh ? "搜狗原 CTO，主导研发搜狗输入法及浏览器。" : "Former CTO of Sogou; led development of Sogou Input Method and browser.",
               },
               {
                 name: "陈雪松",
-                role: "算法负责人",
-                desc: "聚焦睡眠医学×AI融合创新，任睡眠呼吸疾病诊治设备及系统北京市重点实验室首席研究员。",
+                role: isZh ? "算法负责人" : "Head of Algorithms",
+                desc: isZh ? "聚焦睡眠医学×AI融合创新，任睡眠呼吸疾病诊治设备及系统北京市重点实验室首席研究员。" : "Focused on sleep medicine × AI innovation; chief researcher at the Beijing Key Laboratory for sleep respiratory diagnosis & treatment devices and systems.",
               },
             ].map((member, i) => (
               <FadeIn key={i} delay={0.3 + i * 0.1}>
@@ -1017,15 +1212,21 @@ const Index = () => {
           </div>
           <FadeIn delay={0.5}>
             <div className="bg-card border rounded-xl p-6 mb-12">
-              <h3 className="text-base font-semibold text-foreground mb-2">团队结构</h3>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                {isZh ? "团队结构" : "Team Composition"}
+              </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                创始团队来自搜狗与清华等机构，长期深耕 AI 与生理信号分析方向。团队三分之一来自清华大学，硕博比例超过 70%。
+                {isZh
+                  ? "创始团队来自搜狗与清华等机构，长期深耕 AI 与生理信号分析方向。团队三分之一来自清华大学，硕博比例超过 70%。"
+                  : "The founding team comes from institutions such as Sogou and Tsinghua, with long-term focus on AI and physiological signal analysis. One-third of the team is from Tsinghua University, and 70%+ hold Master's/PhD degrees."}
               </p>
             </div>
           </FadeIn>
 
           <FadeIn delay={0.55}>
-            <h3 className="text-lg font-semibold text-foreground mb-6">合作单位</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-6">
+              {isZh ? "合作单位" : "Partners"}
+            </h3>
           </FadeIn>
           <FadeIn delay={0.6}>
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 bg-card border rounded-xl p-8">
@@ -1044,10 +1245,12 @@ const Index = () => {
         <div className="max-w-3xl mx-auto section-padding text-center">
           <FadeIn>
             <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">
-              五季医学：以 AI 赋能医疗级数字健康，服务筛查预警与长期管理。
+              {isZh
+                ? "五季医学：以 AI 赋能医疗级数字健康，服务筛查预警与长期管理。"
+                : "Five Seasons Medical: AI-powered clinical-grade digital health for screening, alerts, and long-term management."}
             </h2>
             <p className="text-sm text-muted-foreground mb-8 max-w-lg mx-auto">
-              商务与科研合作可通过下方邮件与我们取得联系
+              {isZh ? "商务与科研合作可通过下方邮件与我们取得联系" : "For business and research collaboration, contact us via email:"}
             </p>
             <a
               href="mailto:service@wuji-inc.com"

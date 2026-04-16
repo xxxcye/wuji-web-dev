@@ -2,6 +2,7 @@ import Topbar from "@/components/Topbar";
 import FadeIn from "@/components/FadeIn";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, FileText } from "lucide-react";
+import { useLanguage } from "@/i18n/language";
 
 const papers = [
   {
@@ -95,22 +96,43 @@ const papers = [
 ];
 
 const Research = () => {
+  const { language } = useLanguage();
+  const isZh = language === "zh";
+
+  const tagEn: Record<string, string> = {
+    "睡眠分期": "Sleep staging",
+    "大模型": "Foundation model",
+    "抑郁识别": "Depression detection",
+    "风险评估": "Risk prediction",
+    "睡眠年龄": "Sleep age",
+    "运动医学": "Sports medicine",
+    "生物钟": "Circadian rhythm",
+    "疾病预测": "Disease prediction",
+    "信号处理": "Signal processing",
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Topbar />
       <div className="max-w-5xl mx-auto section-padding pt-24 pb-20">
         <FadeIn>
           <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-8">
-            <ArrowLeft className="w-4 h-4" /> 返回首页
+            <ArrowLeft className="w-4 h-4" /> {isZh ? "返回首页" : "Back to Home"}
           </Link>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-3">科研成果</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            {isZh ? "科研成果" : "Research"}
+          </h1>
           <p className="text-sm text-muted-foreground mb-10 max-w-2xl">
-            五季医学团队持续在睡眠医学、生理信号处理与 AI 模型方向发表高水平学术论文，以下为部分已发表与投稿中的成果。
+            {isZh
+              ? "五季医学团队持续在睡眠医学、生理信号处理与 AI 模型方向发表高水平学术论文，以下为部分已发表与投稿中的成果。"
+              : "Our team publishes peer-reviewed work in sleep medicine, physiological signal processing, and AI. Below is a selection of published and in-review research."}
           </p>
         </FadeIn>
 
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">已发表论文（{papers.length} 篇）</h2>
+          <h2 className="text-lg font-semibold text-foreground mb-4">
+            {isZh ? `已发表论文（${papers.length} 篇）` : `Published Papers (${papers.length})`}
+          </h2>
         </div>
         <div className="grid gap-4 mb-16">
           {papers.map((paper, i) => (
@@ -122,16 +144,16 @@ const Research = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm font-semibold text-foreground leading-relaxed mb-1">
-                      {paper.title}
+                      {isZh ? paper.title : paper.titleEn}
                     </h3>
                     <p className="text-xs text-muted-foreground leading-relaxed mb-2 italic">
-                      {paper.titleEn}
+                      {isZh ? paper.titleEn : paper.title}
                     </p>
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-xs font-medium text-primary">{paper.venue}</span>
                       <span className="text-xs text-muted-foreground">{paper.year}</span>
                       <span className="text-[11px] px-2 py-0.5 border rounded-full text-muted-foreground">
-                        {paper.tag}
+                        {isZh ? paper.tag : (tagEn[paper.tag] ?? paper.tag)}
                       </span>
                     </div>
                   </div>
@@ -141,7 +163,7 @@ const Research = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="shrink-0 p-2 text-muted-foreground hover:text-primary transition-colors"
-                      title="查看原文"
+                      title={isZh ? "查看原文" : "Open link"}
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -160,11 +182,17 @@ const Research = () => {
         <FadeIn>
           <div className="bg-muted rounded-2xl p-6 md:p-8">
             <div className="flex items-center gap-3 mb-3">
-              <h3 className="text-base font-semibold text-foreground">投稿中 · Coming Soon</h3>
-              <span className="text-xs px-2 py-0.5 bg-accent text-accent-foreground rounded-full font-medium">8 项</span>
+              <h3 className="text-base font-semibold text-foreground">
+                {isZh ? "投稿中 · Coming Soon" : "In Review · Coming Soon"}
+              </h3>
+              <span className="text-xs px-2 py-0.5 bg-accent text-accent-foreground rounded-full font-medium">
+                {isZh ? "8 项" : "8"}
+              </span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              另有 8 项研究成果正在投稿中，覆盖多模态信号融合、跨设备迁移学习、罕见睡眠疾病识别等前沿方向。相关论文在正式发表后将同步更新至本页面，敬请期待。
+              {isZh
+                ? "另有 8 项研究成果正在投稿中，覆盖多模态信号融合、跨设备迁移学习、罕见睡眠疾病识别等前沿方向。相关论文在正式发表后将同步更新至本页面，敬请期待。"
+                : "We have 8 additional works under review, spanning multimodal fusion, cross-device transfer learning, and rare sleep disorder detection. This page will be updated once they are published."}
             </p>
           </div>
         </FadeIn>

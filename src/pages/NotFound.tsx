@@ -1,8 +1,11 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useLanguage } from "@/i18n/language";
 
 const NotFound = () => {
   const location = useLocation();
+  const { language } = useLanguage();
+  const isZh = language === "zh";
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
@@ -12,10 +15,12 @@ const NotFound = () => {
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <div className="text-center">
         <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
+        <p className="mb-4 text-xl text-muted-foreground">
+          {isZh ? "页面不存在" : "Oops! Page not found"}
+        </p>
+        <Link to="/" className="text-primary underline hover:text-primary/90">
+          {isZh ? "返回首页" : "Return to Home"}
+        </Link>
       </div>
     </div>
   );
